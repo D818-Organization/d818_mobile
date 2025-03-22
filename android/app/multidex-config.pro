@@ -1,0 +1,3 @@
+-keep class androidx.multidex.MultiDexApplication { <init>(); }
+-keep class com.google.android.gms.** { *; }
+-keep class com.stripe.android.** { *; }

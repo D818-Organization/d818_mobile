@@ -1,0 +1,21 @@
+const String registerEndpoint = '/customers';
+const String signinEndpoint = '/customers/login';
+// const String logoutEndpoint = '/logout';
+const String getPlansEndpoint = '/plans';
+const String getMealsEndpoint = '/products';
+const String createReviewEndpoint = '/reviews';
+const String cartsEndpoint = '/carts';
+const String emptyCartEndpoint = "/carts/customer";
+const String campusEndpoint = '/campuses';
+const String favouritesEndpoint = '/favorites';
+const String myProfileEndpoint = '/customers/get/profile';
+const String updateMyProfileEndpoint = '/customers/profile';
+const String updateMyProfileImageEndpoint = '/customers/profile-image';
+const String feedbackEndpoint = '/feedback';
+const String requestOtpEndpoint = '/otp/verify-email';
+const String createRegularOrderEndpoint = '/orders/create-order';
+const String createOutOfBoundOrderEndpoint = '/out-of-bound';
+const String getLocationDetailsEndpoint = "/geo-coding/get-location";
+const String getAllRegularOrdersEndpoint = '/orders/get/customer-orders';
+const String getAllOutOfBoundOrdersEndpoint =
+    '/out-of-bound/get/customer-orders';
