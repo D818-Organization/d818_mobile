@@ -5,6 +5,7 @@ import 'package:d818_mobile_app/app/resources/app.logger.dart';
 import 'package:d818_mobile_app/app/services/api_services/api_services.dart';
 import 'package:d818_mobile_app/ui/features/transactions/data/data.dart';
 import 'package:d818_mobile_app/ui/shared/shared_widgets/buttons/custom_button.dart';
+import 'package:d818_mobile_app/ui/shared/shared_widgets/custom_loading_indicator.dart';
 import 'package:d818_mobile_app/ui/shared/shared_widgets/custom_textfield.dart';
 import 'package:d818_mobile_app/ui/shared/shared_widgets/spacer.dart';
 import 'package:d818_mobile_app/utils/app_constants/app_colors.dart';
@@ -15,7 +16,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 var log = getLogger('GeoLocationPage');
 
 class GeoLocationPage extends StatefulWidget {
-  const GeoLocationPage({super.key});
+  final String previouslySelectedAddress;
+  const GeoLocationPage({super.key, required this.previouslySelectedAddress});
 
   @override
   State<GeoLocationPage> createState() => _GeoLocationPageState();
@@ -31,7 +33,8 @@ class _GeoLocationPageState extends State<GeoLocationPage> {
   @override
   void initState() {
     super.initState();
-    addressController = TextEditingController();
+    addressController =
+        TextEditingController(text: widget.previouslySelectedAddress);
   }
 
   @override
@@ -88,17 +91,17 @@ class _GeoLocationPageState extends State<GeoLocationPage> {
         leading: InkWell(
           onTap: () => Navigator.pop(context),
           child: Container(
-            padding: const EdgeInsets.only(left: 8, right: 0),
+            padding: const EdgeInsets.only(left: 6, right: 0),
             height: 60,
             child: Icon(
-              Icons.close_sharp,
+              Icons.chevron_left_rounded,
               color: AppColors.plainWhite,
-              size: 30,
+              size: 35,
             ),
           ),
         ),
         title: Text(
-          "Enter delivery address",
+          "Delivery address",
           style: AppStyles.boldHeaderStyle(18, color: AppColors.plainWhite),
         ),
       ),
@@ -110,25 +113,33 @@ class _GeoLocationPageState extends State<GeoLocationPage> {
         ),
         child: Column(
           children: [
-            customVerticalSpacer(12),
+            customVerticalSpacer(16),
+            Row(
+              children: [
+                customHorizontalSpacer(16),
+                Text(
+                  "Enter your delivery address",
+                  style: AppStyles.commonStringStyle(16,
+                      color: AppColors.fullBlack),
+                ),
+              ],
+            ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
               child: CustomTextField(
                 textEditingController: addressController,
                 mainFillColor: AppColors.plainWhite,
                 borderColor: AppColors.blueGray,
                 autofocus: false,
-                height: 40,
-                hintText: "Enter delivery address",
-                hintStyle: AppStyles.normalStringStyle(16),
+                height: 44,
+                hintText: "e.g. Trentside North, NG2 5FJ",
+                hintStyle: AppStyles.normalStringStyle(12),
                 inputStringStyle: AppStyles.semiHeaderStyle(16, 1.0),
               ),
             ),
-            customVerticalSpacer(8),
+            customVerticalSpacer(14),
             fetchLocationLoading == true
-                ? const CircularProgressIndicator(
-                    strokeWidth: 3,
-                  )
+                ? customLoadingindicator()
                 : CustomButton(
                     width: 160,
                     borderRadius: 16,
@@ -143,10 +154,11 @@ class _GeoLocationPageState extends State<GeoLocationPage> {
                     ),
                     onPressed: () {
                       if (addressController.text.trim().isEmpty == true) {
-                        Fluttertoast.showToast(msg: "Enter address first");
+                        Fluttertoast.showToast(
+                            msg: "Enter your delivery address");
                       } else {
                         String enteredLoc = addressController.text.trim();
-                        fetchDeliveryAddress("$enteredLoc Akure");
+                        fetchDeliveryAddress(enteredLoc);
                       }
                     },
                   ),

@@ -67,7 +67,7 @@ class _CartItemTileState extends State<CartItemTile> {
         );
       },
       child: Container(
-        height: 100,
+        height: 103,
         width: screenWidth(context),
         margin: const EdgeInsets.symmetric(vertical: 3),
         decoration: BoxDecoration(
@@ -81,8 +81,8 @@ class _CartItemTileState extends State<CartItemTile> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Container(
-              width: 75,
-              height: 75,
+              width: 78,
+              height: 78,
               margin: const EdgeInsets.symmetric(horizontal: 8.51, vertical: 8),
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -97,7 +97,7 @@ class _CartItemTileState extends State<CartItemTile> {
             ),
             Expanded(
               child: Container(
-                height: 75,
+                height: 78,
                 margin: const EdgeInsets.only(right: 8.51, top: 8, bottom: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +116,7 @@ class _CartItemTileState extends State<CartItemTile> {
                       softWrap: true,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: AppStyles.normalStringStyle(8.52),
+                      style: AppStyles.normalStringStyle(10),
                     ),
                     customVerticalSpacer(4),
                     Row(

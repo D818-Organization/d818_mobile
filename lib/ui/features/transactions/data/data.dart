@@ -2,7 +2,7 @@ import 'package:d818_mobile_app/app/models/campuses/campus_model.dart';
 
 List<String> deliveryList = [
   'Campus',
-  'City',
+  'Address',
 ];
 
 String? deliveryAddress;

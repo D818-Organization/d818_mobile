@@ -77,14 +77,13 @@ class _MealItemTileState extends State<MealItemTile> {
               style: AppStyles.boldHeaderStyle(12.16),
             ),
             customVerticalSpacer(6.5),
-            SizedBox(
-              height: 42,
-              child: Text(
-                widget.mealData.description ?? '',
-                softWrap: true,
-                textAlign: TextAlign.center,
-                style: AppStyles.normalStringStyle(8.52),
-              ),
+            Text(
+              widget.mealData.description ?? '',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: AppStyles.normalStringStyle(10),
             ),
             customVerticalSpacer(6.5),
             Text(
@@ -105,12 +104,12 @@ class _MealItemTileState extends State<MealItemTile> {
                     borderRadius: BorderRadius.circular(13.3),
                     color: AppColors.kPrimaryColor),
                 height: 16.42,
-                width: 72,
+                width: 76,
                 child: Center(
                   child: Text(
                     "Add to Cart",
                     style: AppStyles.headerStyle(
-                      6.6,
+                      8.2,
                       color: AppColors.plainWhite,
                     ),
                   ),

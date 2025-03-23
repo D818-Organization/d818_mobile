@@ -95,10 +95,16 @@ class _CartPageState extends State<CartPage> {
     }
   }
 
+  initializePhoneNuberField() async {
+    final previousPhoneNumber = await getPreviousDeliveryPhoneNumber();
+    phoneController = TextEditingController(text: previousPhoneNumber);
+  }
+
   @override
   void initState() {
     super.initState();
     BlocProvider.of<TransactionsBloc>(context).add(GetCartData());
+    initializePhoneNuberField();
   }
 
   @override
@@ -156,57 +162,54 @@ class _CartPageState extends State<CartPage> {
                   customVerticalSpacer(10),
                   selectedDelivery == deliveryList[0]
                       ? _campusSelector()
-                      : InkWell(
+                      : GestureDetector(
                           onTap: () async {
-                            log.wtf("Show location dialog");
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const GeoLocationPage(),
+                                builder: (context) => GeoLocationPage(
+                                  previouslySelectedAddress:
+                                      deliveryAddress ?? '',
+                                ),
                               ),
                             );
                             setState(() {});
                           },
-                          child: Material(
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(vertical: 10),
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              height: 45,
-                              width: screenWidth(context),
-                              decoration: BoxDecoration(
-                                color: AppColors.transparent,
-                                border:
-                                    Border.all(color: AppColors.lighterGrey),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.location_pin,
-                                    color: AppColors.kPrimaryColor,
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            height: 45,
+                            width: screenWidth(context),
+                            decoration: BoxDecoration(
+                              color: AppColors.transparent,
+                              border: Border.all(color: AppColors.lighterGrey),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.location_pin,
+                                  color: AppColors.kPrimaryColor,
+                                ),
+                                customHorizontalSpacer(10),
+                                Container(
+                                  height: 45,
+                                  width: 1,
+                                  color: AppColors.lightGrey,
+                                ),
+                                customHorizontalSpacer(15),
+                                Expanded(
+                                  child: Text(
+                                    deliveryAddress ?? "Enter delivery address",
+                                    style: deliveryAddress == null
+                                        ? AppStyles.normalStringStyle(16)
+                                        : AppStyles.semiHeaderStyle(
+                                            16,
+                                            1.0,
+                                          ),
                                   ),
-                                  customHorizontalSpacer(10),
-                                  Container(
-                                    height: 45,
-                                    width: 1,
-                                    color: AppColors.lightGrey,
-                                  ),
-                                  customHorizontalSpacer(15),
-                                  Expanded(
-                                    child: Text(
-                                      deliveryAddress ??
-                                          "Enter delivery address",
-                                      style: deliveryAddress == null
-                                          ? AppStyles.normalStringStyle(16)
-                                          : AppStyles.semiHeaderStyle(
-                                              16,
-                                              1.0,
-                                            ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -318,7 +321,8 @@ class _CartPageState extends State<CartPage> {
                                       currentQuantity:
                                           mealItemData.quantity ?? 1,
                                     );
-                                  })
+                                  },
+                                )
                               : Center(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -369,7 +373,9 @@ class _CartPageState extends State<CartPage> {
                         checkOutCart(transactionsBloc);
                       }
                     },
-                    child: Container(
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeInOut,
                       width: screenWidth(context) * 0.6,
                       height: 55,
                       padding: const EdgeInsets.symmetric(vertical: 1),

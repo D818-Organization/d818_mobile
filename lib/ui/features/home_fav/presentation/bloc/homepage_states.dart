@@ -7,7 +7,7 @@ import 'package:d818_mobile_app/app/models/review/customer_review_model.dart';
 class HomepageState {
   HomepageState({
     this.networkAvailable,
-    this.isLoading = false,
+    this.isLoading = true,
     this.noReviewsYet,
     this.meals,
     this.searchMeals,

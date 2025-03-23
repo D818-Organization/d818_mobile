@@ -11,7 +11,7 @@ import 'package:equatable/equatable.dart';
 class TransactionsState extends Equatable {
   TransactionsState({
     this.errorFetchingOrders = false,
-    this.loading,
+    this.loading = true,
     this.noCartItems,
     this.noRegOrdersItems,
     this.noOobOrdersItems,

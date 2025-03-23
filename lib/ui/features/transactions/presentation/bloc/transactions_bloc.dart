@@ -399,6 +399,7 @@ class TransactionsBloc extends Bloc<TransactionsBlocEvent, TransactionsState> {
   setDeliveryPhoneNumber(String phoneNumber) {
     deliveryPhoneNumber = phoneNumber;
     log.w("Set Delivery Phone Number: $deliveryPhoneNumber");
+    saveDeliveryPhoneNumber(phoneNumber);
   }
 
   selectPaymentOption(PaymentOptions paymentOption) {
@@ -495,6 +496,7 @@ class TransactionsBloc extends Bloc<TransactionsBlocEvent, TransactionsState> {
 
   updateLocalCartData(int newProductcount, int indexOfProductItem) async {
     try {
+      emit(state.copyWith(loading: true, noCartItems: false));
       CartDetailsModel? localCartData = await getLocalCart();
 
       List<CartProduct> cartProducts = localCartData?.products ?? [];
@@ -513,7 +515,7 @@ class TransactionsBloc extends Bloc<TransactionsBlocEvent, TransactionsState> {
       updatedCartData?.bill = totalBill;
       log.w("Total Bill: $totalBill  = ${updatedCartData?.bill}");
 
-      emit(state.copyWith(cartData: updatedCartData));
+      emit(state.copyWith(loading: false, cartData: updatedCartData));
       updateLocalCart(cartDetailsModelToJson(updatedCartData!));
       await getLocalCartData(false);
     } catch (e) {

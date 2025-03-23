@@ -49,6 +49,17 @@ Future<void> clearLocalCart() async {
   await updateLocalCart('');
 }
 
+saveDeliveryPhoneNumber(String phoneNumber) {
+  saveSharedPrefsStringValue(
+    stringKey: "deliveryPhoneNumber",
+    stringValue: phoneNumber,
+  );
+}
+
+Future<String> getPreviousDeliveryPhoneNumber() async {
+  return await getSharedPrefsSavedString("deliveryPhoneNumber");
+}
+
 saveScreenToGoAfterLogin(String screenName) {
   saveSharedPrefsStringValue(
     stringKey: "screenToGoAfterLogin",

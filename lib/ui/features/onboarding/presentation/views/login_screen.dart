@@ -75,130 +75,146 @@ class _LoginScreenState extends State<LoginScreen> {
       onTap: () => SystemChannels.textInput.invokeMethod('TextInput.hide'),
       child: Scaffold(
         backgroundColor: AppColors.plainWhite,
-        body: Padding(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
-          child: BlocBuilder<AuthCubit, AuthState>(
-            bloc: authCubit,
-            builder: (context, state) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 39),
-                child: Center(
-                  child: CustomCurvedContainer(
-                    leftPadding: 30,
-                    rightPadding: 30,
-                    height: 470,
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: ListView(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.zero,
-                        children: [
-                          Image.asset(
-                            'assets/D818.png',
-                            height: 70,
-                            width: 90,
+        appBar: PreferredSize(
+          preferredSize: Size(screenWidth(context), 40),
+          child: Container(
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
+            padding: const EdgeInsets.only(left: 16),
+            child: Row(
+              children: [
+                InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: Icon(
+                    Icons.chevron_left_rounded,
+                    size: 35,
+                    color: AppColors.kPrimaryColor,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        body: BlocBuilder<AuthCubit, AuthState>(
+          bloc: authCubit,
+          builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 39),
+              child: Center(
+                child: CustomCurvedContainer(
+                  leftPadding: 30,
+                  rightPadding: 30,
+                  height: 470,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: ListView(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      children: [
+                        Image.asset(
+                          'assets/D818.png',
+                          height: 70,
+                          width: 90,
+                        ),
+                        Center(
+                          child: Text(
+                            "Log in",
+                            style: AppStyles.boldHeaderStyle(
+                              16.6,
+                              color: AppColors.kPrimaryColor,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          Center(
-                            child: Text(
-                              "Log in",
-                              style: AppStyles.boldHeaderStyle(
-                                16.6,
-                                color: AppColors.kPrimaryColor,
+                        ),
+                        customVerticalSpacer(10),
+                        Text(
+                          "Log in with your details to continue",
+                          style: AppStyles.normalStringStyle(
+                            12.5,
+                            color: AppColors.fullBlack,
+                          ),
+                        ),
+                        customVerticalSpacer(20),
+                        InputWidget(
+                          controller: emailController,
+                          title: AppStrings.email,
+                          hintText: 'Enter your email',
+                          textInputAction: TextInputAction.next,
+                        ),
+                        InputWidget(
+                          controller: passwordController,
+                          title: AppStrings.password,
+                          hintText: 'Enter your password',
+                          textInputAction: TextInputAction.done,
+                          obscure: true,
+                        ),
+                        customVerticalSpacer(15),
+                        // TODO: Forgot Password Function
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            InkWell(
+                              onTap: () => log.wtf('forgotPassword pressed'),
+                              child: Text(
+                                "${AppStrings.forgotPassword}?  ",
+                                style: AppStyles.headerStyle(14),
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          customVerticalSpacer(10),
-                          Text(
-                            "Log in with your details to continue",
-                            style: AppStyles.normalStringStyle(
-                              12.5,
-                              color: AppColors.fullBlack,
-                            ),
-                          ),
-                          customVerticalSpacer(20),
-                          InputWidget(
-                            controller: emailController,
-                            title: AppStrings.email,
-                            hintText: 'Enter your email',
-                            textInputAction: TextInputAction.next,
-                          ),
-                          InputWidget(
-                            controller: passwordController,
-                            title: AppStrings.password,
-                            hintText: 'Enter your password',
-                            textInputAction: TextInputAction.done,
-                            obscure: true,
-                          ),
-                          customVerticalSpacer(15),
-                          // TODO: Forgot Password Function
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              InkWell(
-                                onTap: () => log.wtf('forgotPassword pressed'),
-                                child: Text(
-                                  "${AppStrings.forgotPassword}?  ",
-                                  style: AppStyles.headerStyle(14),
+                            )
+                          ],
+                        ),
+                        customVerticalSpacer(15),
+                        formValidationError != null && formValidationError != ''
+                            ? Text(
+                                formValidationError ?? '',
+                                textAlign: TextAlign.center,
+                                style: AppStyles.lightStringStyleColored(
+                                  12,
+                                  AppColors.coolRed,
                                 ),
                               )
+                            : customVerticalSpacer(14),
+                        customVerticalSpacer(8),
+                        CustomButton(
+                          onPressed: () => attempToLoginUser(),
+                          width: screenWidth(context),
+                          height: 35,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                AppStrings.login,
+                                style: AppStyles.coloredSemiHeaderStyle(
+                                  16,
+                                  AppColors.plainWhite,
+                                ),
+                              ),
+                              customHorizontalSpacer(
+                                  state.isProcessing == true ? 10 : 0),
+                              state.isProcessing == true
+                                  ? SizedBox(
+                                      width: 25,
+                                      height: 25,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: AppColors.plainWhite,
+                                      ),
+                                    )
+                                  : const SizedBox.shrink()
                             ],
                           ),
-                          customVerticalSpacer(15),
-                          formValidationError != null &&
-                                  formValidationError != ''
-                              ? Text(
-                                  formValidationError ?? '',
-                                  textAlign: TextAlign.center,
-                                  style: AppStyles.lightStringStyleColored(
-                                    12,
-                                    AppColors.coolRed,
-                                  ),
-                                )
-                              : customVerticalSpacer(14),
-                          customVerticalSpacer(8),
-                          CustomButton(
-                            onPressed: () => attempToLoginUser(),
-                            width: screenWidth(context),
-                            height: 35,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  AppStrings.login,
-                                  style: AppStyles.coloredSemiHeaderStyle(
-                                    16,
-                                    AppColors.plainWhite,
-                                  ),
-                                ),
-                                customHorizontalSpacer(
-                                    state.isProcessing == true ? 10 : 0),
-                                state.isProcessing == true
-                                    ? SizedBox(
-                                        width: 25,
-                                        height: 25,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                          color: AppColors.plainWhite,
-                                        ),
-                                      )
-                                    : const SizedBox.shrink()
-                              ],
-                            ),
-                          ),
-                          customVerticalSpacer(10),
-                          alreadyHaveAcountTile(
-                            context,
-                            createNewAccount: true,
-                          ),
-                        ],
-                      ),
+                        ),
+                        customVerticalSpacer(10),
+                        alreadyHaveAcountTile(
+                          context,
+                          createNewAccount: true,
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );

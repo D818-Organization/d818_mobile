@@ -389,7 +389,7 @@ class _MealDetailsPageState extends State<MealDetailsPage> {
                               child: Text(
                                 "Add Your Review",
                                 style: AppStyles.normalStringStyle(
-                                  10.25,
+                                  12,
                                   color: AppColors.darkGrey,
                                 ),
                               ),

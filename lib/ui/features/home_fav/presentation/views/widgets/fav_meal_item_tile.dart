@@ -85,7 +85,7 @@ class _FavMealItemTileState extends State<FavMealItemTile> {
                 widget.mealData.description ?? '',
                 softWrap: true,
                 textAlign: TextAlign.center,
-                style: AppStyles.normalStringStyle(8.52),
+                style: AppStyles.normalStringStyle(10),
               ),
             ),
             customVerticalSpacer(6.5),
@@ -117,7 +117,7 @@ class _FavMealItemTileState extends State<FavMealItemTile> {
                       child: Text(
                         "Add to Cart",
                         style: AppStyles.headerStyle(
-                          6.6,
+                          8.2,
                           color: AppColors.plainWhite,
                         ),
                       ),
@@ -138,9 +138,9 @@ class _FavMealItemTileState extends State<FavMealItemTile> {
                     width: 72,
                     child: Center(
                       child: Text(
-                        "Remove From List",
+                        "Remove",
                         style: AppStyles.headerStyle(
-                          6.6,
+                          8.2,
                           color: AppColors.plainWhite,
                         ),
                       ),

@@ -292,22 +292,22 @@ class _ProfilePageState extends State<ProfilePage> {
                               icon: Icons.perm_contact_calendar_outlined,
                               onPressed: () => context.push('/contactUsPage'),
                             ),
-                            ProfileOptionTilesWidget(
-                              heading: "About Us",
-                              icon: CupertinoIcons.question_circle,
-                              onPressed: () => goToPage(
-                                pageTitle: "About Us",
-                                pageUrl: "https://www.d818.co.uk/about",
-                              ),
-                            ),
-                            ProfileOptionTilesWidget(
-                              heading: "Disclaimer",
-                              icon: CupertinoIcons.info_circle,
-                              onPressed: () => goToPage(
-                                pageTitle: "Disclaimer",
-                                pageUrl: "https://www.d818.co.uk/disclaimer",
-                              ),
-                            ),
+                            // ProfileOptionTilesWidget(
+                            //   heading: "About Us",
+                            //   icon: CupertinoIcons.question_circle,
+                            //   onPressed: () => goToPage(
+                            //     pageTitle: "About Us",
+                            //     pageUrl: "https://www.d818.co.uk/about",
+                            //   ),
+                            // ),
+                            // ProfileOptionTilesWidget(
+                            //   heading: "Disclaimer",
+                            //   icon: CupertinoIcons.info_circle,
+                            //   onPressed: () => goToPage(
+                            //     pageTitle: "Disclaimer",
+                            //     pageUrl: "https://www.d818.co.uk/disclaimer",
+                            //   ),
+                            // ),
                             ProfileOptionTilesWidget(
                               heading: "Terms and Conditions",
                               icon: CupertinoIcons.doc_circle,

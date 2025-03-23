@@ -95,107 +95,124 @@ class _EmailSignupScreenState extends State<EmailSignupScreen> {
       onTap: () => SystemChannels.textInput.invokeMethod('TextInput.hide'),
       child: Scaffold(
         backgroundColor: AppColors.plainWhite,
-        body: Padding(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
-          child: BlocBuilder<AuthCubit, AuthState>(
-            bloc: authCubit,
-            builder: (context, state) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 39),
-                  child: CustomCurvedContainer(
-                    leftPadding: 30,
-                    rightPadding: 30,
-                    height: 350,
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: ListView(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.zero,
-                        children: [
-                          Image.asset(
-                            'assets/D818.png',
-                            height: 70,
-                            width: 90,
+        appBar: PreferredSize(
+          preferredSize: Size(screenWidth(context), 40),
+          child: Container(
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
+            padding: const EdgeInsets.only(left: 16),
+            child: Row(
+              children: [
+                InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: Icon(
+                    Icons.chevron_left_rounded,
+                    size: 35,
+                    color: AppColors.kPrimaryColor,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        body: BlocBuilder<AuthCubit, AuthState>(
+          bloc: authCubit,
+          builder: (context, state) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 39),
+                child: CustomCurvedContainer(
+                  leftPadding: 30,
+                  rightPadding: 30,
+                  height: 350,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: ListView(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      children: [
+                        Image.asset(
+                          'assets/D818.png',
+                          height: 70,
+                          width: 90,
+                        ),
+                        Center(
+                          child: Text(
+                            "Welcome to D818",
+                            style: AppStyles.boldHeaderStyle(
+                              16.6,
+                              color: AppColors.kPrimaryColor,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          Center(
-                            child: Text(
-                              "Welcome to D818",
-                              style: AppStyles.boldHeaderStyle(
-                                16.6,
-                                color: AppColors.kPrimaryColor,
-                              ),
-                              textAlign: TextAlign.center,
+                        ),
+                        customVerticalSpacer(10),
+                        Text(
+                          "Enter your email to sign up",
+                          style: AppStyles.normalStringStyle(
+                            12.5,
+                            color: AppColors.fullBlack,
+                          ),
+                        ),
+                        customVerticalSpacer(30),
+                        InputWidget(
+                          controller: emailController,
+                          title: "Email",
+                          hintText: "Enter your email",
+                          onchanged: (p0) => validateEmail(
+                            emailController.text.trim(),
+                          ),
+                        ),
+                        customVerticalSpacer(5),
+                        SizedBox(
+                          height: 20,
+                          child: Text(
+                            emailValidator ?? '',
+                            textAlign: TextAlign.center,
+                            style: AppStyles.lightStringStyleColored(
+                              14,
+                              AppColors.coolRed,
                             ),
                           ),
-                          customVerticalSpacer(10),
-                          Text(
-                            "Enter your email to sign up",
-                            style: AppStyles.normalStringStyle(
-                              9.0,
-                              color: AppColors.fullBlack,
-                            ),
-                          ),
-                          customVerticalSpacer(30),
-                          InputWidget(
-                            controller: emailController,
-                            title: "Email",
-                            hintText: "Enter your email",
-                            onchanged: (p0) => validateEmail(
-                              emailController.text.trim(),
-                            ),
-                          ),
-                          customVerticalSpacer(5),
-                          SizedBox(
-                            height: 20,
-                            child: Text(
-                              emailValidator ?? '',
-                              textAlign: TextAlign.center,
-                              style: AppStyles.lightStringStyleColored(
-                                14,
-                                AppColors.coolRed,
-                              ),
-                            ),
-                          ),
-                          CustomButton(
-                            onPressed: () => attemptToVerifyEmail(),
-                            width: screenWidth(context),
-                            height: 35,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  AppStrings.contineu,
-                                  style: AppStyles.coloredSemiHeaderStyle(
-                                    16,
-                                    AppColors.plainWhite,
-                                  ),
+                        ),
+                        CustomButton(
+                          onPressed: () => attemptToVerifyEmail(),
+                          width: screenWidth(context),
+                          height: 35,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                AppStrings.contineu,
+                                style: AppStyles.coloredSemiHeaderStyle(
+                                  16,
+                                  AppColors.plainWhite,
                                 ),
-                                customHorizontalSpacer(
-                                    state.isLoading == true ? 10 : 0),
-                                state.isLoading == true
-                                    ? SizedBox(
-                                        width: 20,
-                                        height: 20,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                          color: AppColors.plainWhite,
-                                        ),
-                                      )
-                                    : const SizedBox.shrink()
-                              ],
-                            ),
+                              ),
+                              customHorizontalSpacer(
+                                  state.isLoading == true ? 10 : 0),
+                              state.isLoading == true
+                                  ? SizedBox(
+                                      width: 20,
+                                      height: 20,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: AppColors.plainWhite,
+                                      ),
+                                    )
+                                  : const SizedBox.shrink()
+                            ],
                           ),
-                          customVerticalSpacer(10),
-                          alreadyHaveAcountTile(context),
-                        ],
-                      ),
+                        ),
+                        customVerticalSpacer(10),
+                        alreadyHaveAcountTile(context),
+                      ],
                     ),
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );
