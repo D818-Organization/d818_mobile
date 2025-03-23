@@ -123,7 +123,7 @@ class _CartPageState extends State<CartPage> {
               child: Container(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).viewPadding.top),
-                color: AppColors.plainWhite.withOpacity(0.75),
+                color: AppColors.plainWhite.withValues(alpha: 0.75),
                 child: Row(
                   children: [
                     InkWell(
@@ -291,8 +291,8 @@ class _CartPageState extends State<CartPage> {
                                 Icon(
                                   CupertinoIcons.cart,
                                   size: 130,
-                                  color:
-                                      AppColors.kPrimaryColor.withOpacity(0.3),
+                                  color: AppColors.kPrimaryColor
+                                      .withValues(alpha: 0.3),
                                 ),
                                 Text(
                                   "Cart is empty. Add menu Items",
@@ -447,7 +447,7 @@ class _CartPageState extends State<CartPage> {
                       ),
                     ),
                     style: AppStyles.inputStringStyle(
-                        AppColors.fullBlack.withOpacity(0.9)),
+                        AppColors.fullBlack.withValues(alpha: 0.9)),
                     items: campusList
                         .map(
                           (CampusModel item) => DropdownMenuItem<String>(
@@ -540,7 +540,7 @@ class _CartPageState extends State<CartPage> {
                   ),
                 ),
                 style: AppStyles.inputStringStyle(
-                    AppColors.fullBlack.withOpacity(0.9)),
+                    AppColors.fullBlack.withValues(alpha: 0.9)),
                 items: deliveryList
                     .map(
                       (String item) => DropdownMenuItem<String>(

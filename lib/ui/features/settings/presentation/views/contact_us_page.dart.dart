@@ -156,7 +156,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     orderPhoneNumber,
                     style: AppStyles.commonStringStyle(
                       16,
-                      color: AppColors.fullBlack.withOpacity(0.8),
+                      color: AppColors.fullBlack.withValues(alpha: 0.8),
                     ),
                   ),
                   customVerticalSpacer(15),
@@ -164,7 +164,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     "d818.restaurant@gmail.com",
                     style: AppStyles.commonStringStyle(
                       16,
-                      color: AppColors.fullBlack.withOpacity(0.8),
+                      color: AppColors.fullBlack.withValues(alpha: 0.8),
                     ),
                   ),
                   customVerticalSpacer(15),
@@ -172,7 +172,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     "www.d818.co.uk",
                     style: AppStyles.commonStringStyle(
                       16,
-                      color: AppColors.amber.withOpacity(0.8),
+                      color: AppColors.amber.withValues(alpha: 0.8),
                     ),
                   ),
                   customVerticalSpacer(25),
@@ -180,7 +180,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     "Send us a message",
                     style: AppStyles.commonStringStyle(
                       14,
-                      color: AppColors.fullBlack.withOpacity(0.8),
+                      color: AppColors.fullBlack.withValues(alpha: 0.8),
                     ),
                   ),
                   customVerticalSpacer(10),

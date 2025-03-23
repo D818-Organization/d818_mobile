@@ -82,15 +82,16 @@ class _InputSelectionWidgetState extends State<InputSelectionWidget> {
                         ),
                       ),
                       style: AppStyles.inputStringStyle(
-                          AppColors.fullBlack.withOpacity(0.9)),
+                          AppColors.fullBlack.withValues(alpha: 0.9)),
                       items: widget.valuesList
                           .map(
                             (String item) => DropdownMenuItem<String>(
                               value: item,
                               child: Text(
                                 item,
-                                style: AppStyles.inputStringStyle(
-                                        AppColors.fullBlack.withOpacity(0.9))
+                                style: AppStyles.inputStringStyle(AppColors
+                                        .fullBlack
+                                        .withValues(alpha: 0.9))
                                     .copyWith(
                                   letterSpacing: 0.8,
                                 ),

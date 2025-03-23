@@ -342,7 +342,7 @@ class _EditAccountPageState extends State<EditAccountPage> {
                                         ),
                                         style: AppStyles.inputStringStyle(
                                             AppColors.fullBlack
-                                                .withOpacity(0.9)),
+                                                .withValues(alpha: 0.9)),
                                         items: gendersList
                                             .map(
                                               (String item) =>
@@ -354,8 +354,9 @@ class _EditAccountPageState extends State<EditAccountPage> {
                                                           .inputStringStyle(
                                                               AppColors
                                                                   .fullBlack
-                                                                  .withOpacity(
-                                                                      0.9))
+                                                                  .withValues(
+                                                                      alpha:
+                                                                          0.9))
                                                       .copyWith(
                                                     letterSpacing: 0.8,
                                                   ),

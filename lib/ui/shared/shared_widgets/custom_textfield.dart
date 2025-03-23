@@ -149,7 +149,8 @@ class CustomTextField extends StatelessWidget {
                   SystemChannels.textInput.invokeMethod('TextInput.hide');
             }),
             style: inputStringStyle ??
-                AppStyles.inputStringStyle(AppColors.fullBlack.withOpacity(0.9))
+                AppStyles.inputStringStyle(
+                        AppColors.fullBlack.withValues(alpha: 0.9))
                     .copyWith(
                   letterSpacing: 0.8,
                 ),

@@ -63,7 +63,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 padding: EdgeInsets.only(
                   top: MediaQuery.of(context).viewPadding.top,
                 ),
-                color: AppColors.plainWhite.withOpacity(0.75),
+                color: AppColors.plainWhite.withValues(alpha: 0.75),
                 child: Row(
                   children: [
                     InkWell(
@@ -210,7 +210,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               ),
                             ),
                             Text(
-                              PaymentOptions.values[index].name.toSentenceCase(),
+                              PaymentOptions.values[index].name
+                                  .toSentenceCase(),
                               style: AppStyles.semiHeaderStyle(
                                 16,
                                 1,

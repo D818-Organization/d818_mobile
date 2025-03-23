@@ -105,7 +105,7 @@ class MembershipOptionsCard extends StatelessWidget {
               width: screenWidth(context),
               height: 55,
               color: tariffCost.toUpperCase() == "FREE"
-                  ? AppColors.blueGray.withOpacity(0.6)
+                  ? AppColors.blueGray.withValues(alpha: 0.6)
                   : AppColors.regularBlue,
               onPressed: tariffCost.toUpperCase() == "FREE"
                   ? () {

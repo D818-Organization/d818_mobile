@@ -158,7 +158,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             text: 'Error loading your profile.  ',
                             style: AppStyles.headerStyle(
                               14,
-                              color: AppColors.fullBlack.withOpacity(0.6),
+                              color: AppColors.fullBlack.withValues(alpha: 0.6),
                             ),
                             children: <TextSpan>[
                               TextSpan(

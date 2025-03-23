@@ -52,7 +52,7 @@ class _CheckoutCompletePageState extends State<CheckoutCompletePage> {
               child: Container(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).viewPadding.top),
-                color: AppColors.plainWhite.withOpacity(0.75),
+                color: AppColors.plainWhite.withValues(alpha: 0.75),
                 child: Row(
                   children: [
                     InkWell(

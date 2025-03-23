@@ -61,7 +61,7 @@ class _MealDetailsPageState extends State<MealDetailsPage> {
         preferredSize: Size(screenWidth(context), 40),
         child: Container(
           padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
-          color: AppColors.plainWhite.withOpacity(0.75),
+          color: AppColors.plainWhite.withValues(alpha: 0.75),
           child: Row(
             children: [
               InkWell(
@@ -556,8 +556,9 @@ class _MealDetailsPageState extends State<MealDetailsPage> {
                               controller: commentController,
                               maxLines: 3,
                               minLines: 1,
-                              style: AppStyles.inputStringStyle(
-                                      AppColors.fullBlack.withOpacity(0.9))
+                              style: AppStyles.inputStringStyle(AppColors
+                                      .fullBlack
+                                      .withValues(alpha: 0.9))
                                   .copyWith(
                                 letterSpacing: 0.8,
                               ),
