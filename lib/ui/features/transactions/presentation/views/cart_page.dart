@@ -44,32 +44,7 @@ class _CartPageState extends State<CartPage> {
   }
 
   checkOutCart(TransactionsBloc transactionsBloc) {
-    // Check if selected delivery location is Campus
-    if ((selectedDelivery == deliveryList[0]) &&
-        (selectedCampusName == campusList[0].name)) {
-      setState(() {
-        campusSelectedError = 'Kindly select a campus';
-      });
-    } else {
-      setState(() {
-        if (campusSelectedError != '') {
-          campusSelectedError = '';
-        }
-      });
-    }
-    // Check if selected delivery location is City
-    if ((selectedDelivery == deliveryList[1]) &&
-        (deliveryAddress == null || deliveryAddress == '')) {
-      setState(() {
-        addressError = 'Kindly fill your delivery address';
-      });
-    } else {
-      setState(() {
-        if (addressError != '') {
-          addressError = '';
-        }
-      });
-    }
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
     // Check if phone number is entered
     if (phoneController.text.trim().isEmpty == true ||
         phoneController.text.trim().length < 7) {
@@ -87,16 +62,54 @@ class _CartPageState extends State<CartPage> {
         }
       });
     }
-    // If all fields are filled
-    if (addressError == '' && phoneNumberError == '') {
-      log.w("Going to Checkout Screen");
-      SystemChannels.textInput.invokeMethod('TextInput.hide');
-      context.push('/checkoutPage');
+
+    // Check if selected delivery location is Campus
+    if (selectedDelivery == deliveryList[0]) {
+      if (selectedCampusName == campusList[0].name) {
+        setState(() {
+          campusSelectedError = 'Kindly select a campus';
+        });
+      } else {
+        setState(() {
+          if (campusSelectedError != '') {
+            campusSelectedError = '';
+          }
+        });
+
+        // Continue to checkout page
+        if (campusSelectedError == '' && phoneNumberError == '') {
+          log.w("Going to Checkout Screen");
+          context.push('/checkoutPage');
+        }
+      }
+    }
+
+    // When selected delivery location is City Address
+    else {
+      if (deliveryAddress == null || deliveryAddress == '') {
+        setState(() {
+          addressError = 'Kindly fill your delivery address';
+        });
+      } else {
+        setState(() {
+          if (addressError != '') {
+            addressError = '';
+          }
+        });
+
+        // Continue to checkout page
+        if (addressError == '' && phoneNumberError == '') {
+          log.w("Going to Checkout Screen");
+          saveDeliveryAddress(deliveryAddress ?? '');
+          context.push('/checkoutPage');
+        }
+      }
     }
   }
 
-  initializePhoneNuberField() async {
+  initializeField() async {
     final previousPhoneNumber = await getPreviousDeliveryPhoneNumber();
+    deliveryAddress = await getPreviousDeliveryAddress();
     phoneController = TextEditingController(text: previousPhoneNumber);
   }
 
@@ -104,7 +117,7 @@ class _CartPageState extends State<CartPage> {
   void initState() {
     super.initState();
     BlocProvider.of<TransactionsBloc>(context).add(GetCartData());
-    initializePhoneNuberField();
+    initializeField();
   }
 
   @override
@@ -164,6 +177,9 @@ class _CartPageState extends State<CartPage> {
                       ? _campusSelector()
                       : GestureDetector(
                           onTap: () async {
+                            setState(() {
+                              addressError = '';
+                            });
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -215,21 +231,29 @@ class _CartPageState extends State<CartPage> {
                         ),
                   campusSelectedError == ''
                       ? const SizedBox.shrink()
-                      : Text(
-                          campusSelectedError,
-                          style: AppStyles.lightStringStyleColored(
-                            12,
-                            AppColors.coolRed,
-                          ),
+                      : Row(
+                          children: [
+                            Text(
+                              campusSelectedError,
+                              style: AppStyles.lightStringStyleColored(
+                                12,
+                                AppColors.coolRed,
+                              ),
+                            ),
+                          ],
                         ),
                   addressError == ''
                       ? const SizedBox.shrink()
-                      : Text(
-                          addressError,
-                          style: AppStyles.lightStringStyleColored(
-                            12,
-                            AppColors.coolRed,
-                          ),
+                      : Row(
+                          children: [
+                            Text(
+                              addressError,
+                              style: AppStyles.lightStringStyleColored(
+                                12,
+                                AppColors.coolRed,
+                              ),
+                            ),
+                          ],
                         ),
                   customHorizontalSpacer(10),
                   Container(
@@ -470,6 +494,9 @@ class _CartPageState extends State<CartPage> {
                       for (var campus in campusList) {
                         if (campus.name == value) {
                           transactionsBloc.add(SelectCampus(campus));
+                          setState(() {
+                            campusSelectedError = '';
+                          });
                           log.w(
                               "Selected campus ${campus.name} has id ${campus.id}");
                           break;

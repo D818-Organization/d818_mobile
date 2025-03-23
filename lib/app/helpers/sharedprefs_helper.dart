@@ -60,6 +60,17 @@ Future<String> getPreviousDeliveryPhoneNumber() async {
   return await getSharedPrefsSavedString("deliveryPhoneNumber");
 }
 
+saveDeliveryAddress(String address) {
+  saveSharedPrefsStringValue(
+    stringKey: "deliveryAdress",
+    stringValue: address,
+  );
+}
+
+Future<String> getPreviousDeliveryAddress() async {
+  return await getSharedPrefsSavedString("deliveryAdress");
+}
+
 saveScreenToGoAfterLogin(String screenName) {
   saveSharedPrefsStringValue(
     stringKey: "screenToGoAfterLogin",
