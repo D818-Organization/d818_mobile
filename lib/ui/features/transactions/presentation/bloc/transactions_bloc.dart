@@ -115,7 +115,8 @@ class TransactionsBloc extends Bloc<TransactionsBlocEvent, TransactionsState> {
 
     on<CheckoutOrder>((event, emit) async {
       // Check if deliveryDistance is not out of range
-      deliveryDistance! <= deliveryDistanceLimit
+      bool distanceCheck = deliveryDistance! <= deliveryDistanceLimit;
+      distanceCheck == true 
           ? await checkoutRegularOrder(event.context)
           : await checkoutOutOfBoundOrder(event.context);
     });

@@ -71,6 +71,22 @@ Future<String> getPreviousDeliveryAddress() async {
   return await getSharedPrefsSavedString("deliveryAdress");
 }
 
+saveDeliveryDistance(double distance) {
+  saveSharedPrefsStringValue(
+    stringKey: "deliveryDistance",
+    stringValue: distance.toString(),
+  );
+}
+
+Future<double?> getPreviousDeliveryDistance() async {
+  final distance = await getSharedPrefsSavedString("deliveryDistance");
+  try {
+    return double.parse(distance);
+  } catch (e) {
+    return null;
+  }
+}
+
 saveScreenToGoAfterLogin(String screenName) {
   saveSharedPrefsStringValue(
     stringKey: "screenToGoAfterLogin",

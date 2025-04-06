@@ -47,4 +47,4 @@ app.*.map.json
 # Keys
 /assets/.env
 android/key.properties
-android/app/upload-keystore.keystore
+android/app/d818-upload-keystore.jks

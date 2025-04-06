@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:d818_mobile_app/app/helpers/sharedprefs_helper.dart';
 import 'package:d818_mobile_app/app/models/location/geocode_model.dart';
 import 'package:d818_mobile_app/app/resources/app.logger.dart';
 import 'package:d818_mobile_app/app/services/api_services/api_services.dart';
@@ -72,6 +73,9 @@ class _GeoLocationPageState extends State<GeoLocationPage> {
           fetchedDistance =
               geoDetailsData.rows[0].elements[0].distance.value.toDouble();
           deliveryDistance = fetchedDistance;
+
+          log.wtf("delivery Distance: $deliveryDistance - $fetchedDistance");
+          saveDeliveryDistance(deliveryDistance ?? 0);
         }
       }
     } catch (e) {

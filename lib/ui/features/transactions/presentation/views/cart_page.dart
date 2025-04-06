@@ -110,6 +110,9 @@ class _CartPageState extends State<CartPage> {
   initializeField() async {
     final previousPhoneNumber = await getPreviousDeliveryPhoneNumber();
     deliveryAddress = await getPreviousDeliveryAddress();
+    if (deliveryAddress != null) {
+      deliveryDistance = await getPreviousDeliveryDistance();
+    }
     phoneController = TextEditingController(text: previousPhoneNumber);
   }
 
