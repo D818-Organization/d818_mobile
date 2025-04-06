@@ -135,15 +135,8 @@ class StripeHelper {
     } on Exception catch (e) {
       if (e is StripeException) {
         log.w("Error from Stripe: ${e.toJson()}'");
-        if (e.error.localizedMessage
-            .toString()
-            .contains("payment has been canceled")) {
-          Fluttertoast.showToast(msg: 'Cancelled');
-          return PaymentValidator.cancelled;
-        } else {
-          Fluttertoast.showToast(msg: 'Error processing Stripe');
-          return PaymentValidator.failed;
-        }
+        Fluttertoast.showToast(msg: e.error.localizedMessage.toString());
+        return PaymentValidator.cancelled;
       } else {
         Fluttertoast.showToast(msg: 'Error Occured');
         log.w("Unforeseen error: $e");

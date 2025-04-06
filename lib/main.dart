@@ -24,8 +24,7 @@ Future<void> main() async {
   await dotenv.load(fileName: 'assets/.env');
 
   Stripe.publishableKey =
-      'pk_test_51NsNuKFxAXw3aesXUWvBJ5hHOmAlwjD9aT4Fs8MIR7E8QJbpHPRmVuysSUOy5KQZ9Wb1aPg0Yaop0SQAhA42LwaX00L36qXYsK';
-  // Stripe.stripeAccountId
+      'pk_live_51NsNuKFxAXw3aesXQAUWqlvsJKK7FIkErUzgvUMIEgRQZbmZtKd0XOBL9d9M9kpxH5nvNl05xeqf1koJQZ4kH6tl00GMlYKbjj';
   Stripe.merchantIdentifier = 'D818 Restaurants';
 
   await Stripe.instance.applySettings();
